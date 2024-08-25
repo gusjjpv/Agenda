@@ -53,13 +53,16 @@ def submit_evento(request):
         if id_evento:
             Evento.objects.filter(id=id_evento).update(titulo=titulo, data_evento=data_evento, descricao=descricao)
         else:
-            evento = Evento.objects.get(id=id_evento)
-            if evento.usuario == usuario:
-                evento.titulo = titulo
-                evento.descricao = descricao
-                evento.data_evento = data_evento
-                evento.save()
-            #Evento.objects.create(titulo=titulo, data_evento=data_evento, descricao=descricao, usuario=usuario)
+            #nao ta funcionando dessa forma
+            #evento = Evento.objects.get(id=id_evento)
+            #if evento.usuario == usuario:
+            #    evento.titulo = titulo
+            #    evento.descricao = descricao
+            #    evento.data_evento = data_evento
+            #    evento.save()
+            
+            #assim esta funcionando
+            Evento.objects.create(titulo=titulo, data_evento=data_evento, descricao=descricao, usuario=usuario)
     return redirect('/')
 
 @login_required(login_url='/login/')
