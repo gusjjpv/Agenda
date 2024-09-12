@@ -1,22 +1,29 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <style>
-        .login-content{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .message{
-            text-align: center;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Agenda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Login</h1>
+    <header>
+        <div class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <a href="/">Agenda</a>
+                </div>
+                <div class="navbar-links">
+                    <a id="Cadastro" href="/cadastro">Cadastre-se</a>
+                </div>
+            </div>
+          </div>
+    </header>
+
     <form action="submit" method="POST">{% csrf_token %}
         <div class="login-content">
+            <h2>Login</h2>
             <label>Usuario</label>
             <input type="text" name="username"/>
             <label>Password:</label>
@@ -25,13 +32,13 @@
         </div>
     </form>
     
-    {% for message in messages %}
-        <div class="message">
-            <strong>Erro! </strong> {{ message }}
-        </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
         {% endfor %}
-
-    {% include "model-footer.html" %}
+    {% endif %}
 
 </body>
 </html>

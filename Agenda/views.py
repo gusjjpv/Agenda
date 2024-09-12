@@ -5,11 +5,31 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from datetime import datetime, timedelta
 from django.http.response import Http404, JsonResponse
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 # def index(request):
 #    return redirect('/agenda/')
+
+def cadastro_user(request):
+    if request.method == "GET":
+        return render(request, 'cadastro.html')
+    else:
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        user = User.objects.filter(username=username).first()
+        
+        if user:
+            messages.error(request, 'Já existe um usuário com esse username.')
+            return redirect('/cadastro/')
+        
+        user = User.objects.create_user(username=username, email=email, password=password)
+        messages.success(request, 'Usuário criado com sucesso!')  # Mensagem de sucesso opcional
+        return redirect('/')
 
 def login_user(request):
     return render(request, 'login.html')

@@ -1,11 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <title>Agenda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
-    {% include "model-header.html" %} {% block content %} {% endblock %} 
+    {% include "model-header.html" %} 
+    <div class="agenda-content">
+      {% block content %} {% endblock %} 
+    </div>
     
     {% include "model-footer.html" %}
   </body>
